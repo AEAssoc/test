@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Insert User Data</title>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+
+<form id="userDataForm">
+    <label for="name">Name:</label><br>
+    <input type="text" id="name" name="name" required><br>
+    <label for="dept">Department:</label><br>
+    <input type="text" id="dept" name="dept" required><br>
+    <label for="phone">Phone:</label><br>
+    <input type="text" id="phone" name="phone" required><br>
+    <label for="class">Class:</label><br>
+    <input type="text" id="class" name="class" required><br>
+    <input type="submit" value="Submit">
+</form>
+
+<div id="response"></div>
+
+<script>
+$(document).ready(function(){
+    $('#userDataForm').submit(function(event){
+        // Prevent default form submission
+        event.preventDefault();
+        
+        // Get form data
+        var formData = $(this).serialize();
+        
+        // AJAX request to index.php
+        $.ajax({
+            type: 'GET',
+            url: 'https://aeassociation.42web.io/index.php',
+            data: formData,
+            success: function(response){
+                $('#response').html(response); // Display response in div
+            },
+            error: function(xhr, status, error){
+                console.error(xhr.responseText); // Log error message
+            }
+        });
+    });
+});
+</script>
+
+</body>
+</html>
